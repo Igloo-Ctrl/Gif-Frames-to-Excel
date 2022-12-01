@@ -2,7 +2,8 @@ from PIL import Image
 import os
 
 # folder contents
-folder_contents = os.listdir("ezgif-1-45bea6792c-gif-png")
+# folder_contents = os.listdir("ezgif-1-45bea6792c-gif-png")
+folder_contents = os.listdir("120")
 
 # ZE LOOP!!!
 for image in enumerate(folder_contents):

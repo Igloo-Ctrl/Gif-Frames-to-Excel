@@ -7,12 +7,12 @@ from openpyxl import load_workbook, Workbook
 workbook = load_workbook(filename='hello_world.xlsx')
 
 # lists the files within the frames directory
-list_of_files = os.listdir("frames")
+list_of_files = sorted(os.listdir("frames"), key=len)
 
 
 class Variables:
     # change this number depending on the width of your image
-    width = 240
+    width = 48
 
 
 class documentNumber:
@@ -31,7 +31,7 @@ def populate_worksheet_with_rgb_values(name_of_file):
     with open(f"frames/{name_of_file}", "r") as f:
         data = f.readlines()
         for i in data:
-            if column > 239:
+            if column > Variables.width - 1:
                 row += 1
                 column = 1
             sheet.cell(column=column, row=row, value=i)

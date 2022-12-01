@@ -2,12 +2,13 @@ from PIL import Image
 import os
 
 # folder contents
-folder_contents = os.listdir("ezgif-1-45bea6792c-gif-png")
+# folder_contents = os.listdir("ezgif-1-45bea6792c-gif-png")
+folder_contents = os.listdir("48")
 
 # ZE LOOP!!!
 for image in enumerate(folder_contents):
     # open the image, convert to rgb and then load it
-    scene_image = Image.open(f"ezgif-1-45bea6792c-gif-png/{image[1]}")
+    scene_image = Image.open(f"48/{image[1]}")
     rgb_image = scene_image.convert("RGB")
     load_image = scene_image.load()
 
