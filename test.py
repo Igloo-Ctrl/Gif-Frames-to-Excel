@@ -1,9 +1,7 @@
-with open("frames/frame_TEST1.txt", "r") as f:
-    data = f.readlines()
-    stop = 0
-    for i in data:
-        if stop == 2:
-            break
-        else:
-            print(i)
-            stop += 1
+from openpyxl import Workbook, load_workbook
+
+workbook = load_workbook(filename='hello_world.xlsx')
+
+print(workbook.active)
+workbook.active = 0
+print(workbook.active)

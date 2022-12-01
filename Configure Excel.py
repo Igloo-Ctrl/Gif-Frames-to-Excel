@@ -1,11 +1,10 @@
 """the use of this script depends on a gif still that is equal in both width and height"""
 
 import os
-from openpyxl import Workbook, load_workbook
+from openpyxl import load_workbook, Workbook
 
 # openpyxl
 workbook = load_workbook(filename='hello_world.xlsx')
-sheet = workbook.active
 
 # lists the files within the frames directory
 list_of_files = os.listdir("frames")
@@ -28,33 +27,35 @@ def populate_worksheet_with_rgb_values(name_of_file):
     """
     row, column = 1, 1
     workbook.active = documentNumber.document
+    sheet = workbook.active
     with open(f"frames/{name_of_file}", "r") as f:
         data = f.readlines()
         for i in data:
             if column > 239:
                 row += 1
                 column = 1
-            sheet.cell(row=row, column=column, value=i)
+            sheet.cell(column=column, row=row, value=i)
             column += 1
         documentNumber.document += 1
-        workbook.save(filename='hello_world.xlsx')
 
 
 def main():
     for filename in list_of_files:
         populate_worksheet_with_rgb_values(filename)
         print(f"{filename} complete! Moving on.")
+    workbook.save(filename='hello_world.xlsx')
+
 
 # sheet creation and manipulation
-# def create_work_book():
-#     wb = Workbook()
-#     wb.save(filename='hello_world.xlsx')
-#
-#
-# def create_sheets():
-#     for i in range(1, 58):
-#         workbook.create_sheet(f"Frame {i}")
+def create_work_book():
+    wb = Workbook()
+    wb.save(filename='hello_world.xlsx')
 
 
-# saves the changes
-# workbook.save(filename='hello_world.xlsx')
+def create_sheets():
+    for i in range(1, 58):
+        workbook.create_sheet(title=f"Frame {i}")
+
+
+if __name__ == '__main__':
+    main()
