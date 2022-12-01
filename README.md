@@ -4,3 +4,6 @@ A programmatic way of converting the RGB values of each individual pixel in a GI
 ![image](https://user-images.githubusercontent.com/107010803/205056554-e9f4eeee-58f0-4c6d-b2fe-12a11525db00.png)
 
 Note: the colouring and formatting of the excel file was done via VBA macros.
+
+# Steps To Use
+Coming soon?
