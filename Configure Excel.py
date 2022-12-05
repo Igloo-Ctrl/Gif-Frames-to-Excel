@@ -4,7 +4,7 @@ import os
 from openpyxl import load_workbook
 
 # openpyxl
-workbook = load_workbook(filename='hello_world.xlsx')
+workbook = load_workbook(filename='test.xlsx')
 
 # lists the files within the frames directory
 list_of_files = sorted(os.listdir("frames"), key=len)
@@ -39,7 +39,7 @@ def main():
     for filename in list_of_files:
         populate_worksheet_with_rgb_values(filename)
         print(f"{filename} complete! Moving on.")
-    workbook.save(filename='hello_world.xlsx')
+    workbook.save(filename='test.xlsx')
 
 
 if __name__ == '__main__':

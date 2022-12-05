@@ -1,10 +1,12 @@
 from PIL import Image, GifImagePlugin
 import os
+from os.path import exists
+
 
 def create_directories():
-    directory_names = ["gifs", "splits"]
+    directory_names = ["gifs", "images"]
     created_count = 0
-    print(f'\nAttempting to create folders in "{os.getcwd()}"')
+    print(f'Attempting to create folders in "{os.getcwd()}".')
     for name in directory_names:
         try:
             os.mkdir(name)
@@ -12,45 +14,79 @@ def create_directories():
             created_count += 1
         except FileExistsError:
             print(f'The "{name}" directory already exists. Skipping.')
-    print(f"{created_count}/2 folders created.")
+    print(f"\n{created_count}/2 folders created.")
 
 
-def choose_gif_from_directory():
-    current_files = os.listdir("gifs")
+def check_directory_for_images():
+    current_files = os.listdir("images")
     if len(current_files) != 0:
-        print("I found the following files:")
+        print("\nI found the following files:")
         for i in enumerate(current_files):
             print(f"{i[0] + 1}. {current_files[i[0]]}")
-        user_input = input("\nType in the corresponding number to select a gif.\n")
-        if current_files[int(user_input) - 1]:
-            print("Boo!")
+        while True:
+            user_input = input("\nType in the corresponding number to select a image: ")
+            try:
+                if current_files[int(user_input) - 1]:
+                    print("Boo!")
+            except IndexError:
+                print("\nInvalid input. Please try again.")
     else:
-        print('No files found, please move a GIF into the "gifs" folder.')
+        blank_input = input('No files found in the "images" folder. Make sure there is a at least one '
+                            'and press enter to try again.')
+        check_directory_for_images()
 
-def help_me():
-    print("\n(Create Folders) - Creates the necessary folders to store GIFs and their splits\n"
-          "(Split GIF) - Splits a GIF into its keyframes\n"
-          "(Create and Configure Excel File) - Creates an Excel file and the necessary amount of sheets")
 
 def split_gif():
-    choose_gif_from_directory()
+    check_directory_for_images()
+
 
 def create_and_configure_excel_document():
     pass
 
-def main():
-    user_input = input("Welcome to my humble program, please select an option by entering its corresponding number.\n"
-          "1. Create Folders\n2. Split GIF\n3. Create & Configure Excel File\n4. Help\n\n> ")
-    if user_input in possible_entries:
-        possible_entries[user_input]()
+
+def process_image():
+    pass
+
+
+def process_gif():
+    pass
+
+
+def check_for_directories():
+    directory_names = ["gifs", "images"]
+    exist_count = 0
+    for name in directory_names:
+        if exists(name):
+            exist_count += 1
+    if exist_count == 2:
+        print("All folders present.\n")
     else:
-        print("Invalid input.")
+        print("One or more folders are missing, let me fix that.\n")
+        create_directories()
+
+
+def image_or_gif():
+    while True:
+        user_input = input("Would you like to process an image or gif? ").lower()
+        if user_input == "image":
+            check_directory_for_images()
+        elif user_input == "gif":
+            print("Not yet implemented.")
+        else:
+            print("Invalid input.")
+
+
+def main():
+    print("Howdy stranger, I'm here to help you add images or GIFs into Excel. Let's get a move on, shall we?")
+    print("First, let me check to see if you have all your initial folders setup...")
+    check_for_directories()
+    image_or_gif()
+
 
 possible_entries = {
-    "1": create_directories,
-    "2": split_gif,
-    "3": create_and_configure_excel_document,
-    "4": help_me
+    "image": process_image,
+    "gif": process_gif
 }
 
-main()
+if __name__ == '__main__':
+    main()
