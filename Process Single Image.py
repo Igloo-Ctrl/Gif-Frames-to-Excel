@@ -6,16 +6,14 @@ import uuid
 from openpyxl import Workbook, load_workbook
 
 # enter the file path to your image here, for example, /Users/johndoe/Downloads/cat.png
-# filepath = "D:\Downloads\grinch.jpg"
-filepath = "/Users/ryanjones/Downloads/Cat-Photog-Feat-256x256.jpg"
+filepath = "/Users/ryanjones/Downloads/the-manager-robert-de-niro.png"
 
 # time taken
 start = time.process_time()
 
-
 class Variables:
-    image_width = ""
-    image_height = ""
+    image_width = 0
+    image_height = 0
 
     image_filepath = ""
     image_filename = ""
@@ -66,8 +64,9 @@ def process_image(filepath):
     # rgb_image = open_image.convert("rgb")
 
     data_string = ""
-    for i in range(Variables.image_width):
-        for j in range(Variables.image_height):
+    # i = height, j = width
+    for i in range(Variables.image_height):
+        for j in range(Variables.image_width):
             data_string += f"{open_image.getpixel((j, i))[0]}, {open_image.getpixel((j, i))[1]}, " \
                            f"{open_image.getpixel((j, i))[2]}\n"
 
@@ -103,6 +102,8 @@ def input_rbg_into_excel():
     write_vba_macros()
 
 def write_vba_macros():
+    comment = f"'These macros were created for the image: {Variables.image_filename}. Run the first to resize " \
+              f"the cells, run the second to colour them in.\n"
     macro_one = """Sub ChangeColumnWidth()
 'Changes the column width of the range of cells to 2
 
@@ -126,7 +127,7 @@ Next i
 
 End Sub
     """
-    macros_together = f"{macro_one}{macro_two}"
+    macros_together = f"{comment}{macro_one}{macro_two}"
     with open(f"{Variables.image_filepath}/vba_macros.txt", "w") as f:
         f.write(macros_together)
     print("Finished writing VBA macros.")
