@@ -1,14 +1,17 @@
 from PIL import Image
 import os
 
+# folder name
+folder_name = "bobbing burb"
+
 # folder contents
-folder_contents = os.listdir("48")
+folder_contents = os.listdir("bobbing burb")
 
 # ZE LOOP!!!
 for image in enumerate(folder_contents):
 
     # open the image, convert to rgb and then load it
-    scene_image = Image.open(f"48/{image[1]}")
+    scene_image = Image.open(f"{folder_name}/{image[1]}")
     rgb_image = scene_image.convert("RGB")
 
     # image width and height

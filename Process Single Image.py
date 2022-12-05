@@ -4,7 +4,13 @@ from os.path import exists
 import uuid
 
 # enter the file path to your image here, for example, /Users/johndoe/Downloads/cat.png
-filepath = "/Users/ryanjones/Downloads/IMG_0929.png-3.jpeg"
+filepath = "D:\Downloads\grinch.jpg"
+
+
+class Variables:
+    filepath = ""
+    filename = ""
+
 
 def check_for_folder():
     print(f'Checking "{os.getcwd()}" for "images" folder.')
@@ -18,7 +24,7 @@ def check_for_folder():
 
 def validate_filepath():
     if filepath == "":
-        exit('Filepath empty, please change the filepath in the class "Variables" to a valid path.')
+        exit('Filepath empty, please change the filepath at the top of this script to a valid location.')
     else:
         try:
             Image.open(filepath)
@@ -28,17 +34,19 @@ def validate_filepath():
         except IOError:
             print("Invalid file type.")
 
+
 def create_and_move(filepath):
     # directory
-    filename = os.path.basename(filepath)
+    Variables.filename = os.path.basename(filepath)
     generated_filename = str(uuid.uuid4())
-    os.mkdir(f"images/{generated_filename}")
+    Variables.filepath = f"images/{generated_filename}"
+    os.mkdir(Variables.filepath)
 
     # saving a copy of the image
     image = Image.open(filepath)
-    image.save(f"images/{generated_filename}/{filename}")
+    image.save(f"images/{generated_filename}/{Variables.filename}")
     image.close()
-    print("Creating a folder for this process.")
+    print("Creating a folder for this process and copying your image there.")
 
 
 def process_image(filepath):
@@ -52,9 +60,9 @@ def process_image(filepath):
             data_string += f"{open_image.getpixel((i, j))[0]}, {open_image.getpixel((i, j))[1]}, " \
                            f"{open_image.getpixel((i, j))[2]}\n"
 
-    with open(f"images/test.txt", "w") as f:
+    with open(f"{Variables.filepath}/rgb_text.txt", "w") as f:
         f.write(data_string)
-        print(f"test.txt complete!")
+        print(f"RGB text file created.")
 
 
 def main():
@@ -63,19 +71,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-# def prompt_filename():
-#     user_input = input("Please enter the filepath of your image: ")
-#     if exists(user_input):
-#         try:
-#             Image.open(user_input)
-#             print("Valid file type. Proceeding.")
-#             create_and_move(user_input)
-#             process_image(user_input)
-#         except IOError:
-#             print("Invalid file type.")
-#             prompt_filename()
-#     else:
-#         print(f'The file "{user_input}" does not exist.\n')
-

@@ -1,10 +1,9 @@
 """the use of this script depends on a gif still that is equal in both width and height"""
-
 import os
 from openpyxl import load_workbook
 
 # openpyxl
-workbook = load_workbook(filename='test.xlsx')
+workbook = load_workbook(filename='bobber.xlsx')
 
 # lists the files within the frames directory
 list_of_files = sorted(os.listdir("frames"), key=len)
@@ -12,7 +11,7 @@ list_of_files = sorted(os.listdir("frames"), key=len)
 
 class Variables:
     document_number = 0
-    width = 48
+    width = 225
 
 
 def populate_worksheet_with_rgb_values(name_of_file):

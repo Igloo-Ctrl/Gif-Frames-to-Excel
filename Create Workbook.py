@@ -1,7 +1,7 @@
 from openpyxl import Workbook
 
-amount_of_sheets = 57
-excel_filename = "test.xlsx"
+amount_of_sheets = 32
+excel_filename = "bobber.xlsx"
 
 
 def create_work_book():
