@@ -11,8 +11,10 @@ filepath = "/Users/ryanjones/Downloads/IMG_0929.jpeg"
 class Variables:
     image_width = ""
     image_height = ""
+
     image_filepath = ""
     image_filename = ""
+
     excel_file_path = ""
 
 
@@ -41,14 +43,14 @@ def validate_filepath():
 
 def create_and_move(filepath):
     # directory
-    Variables.filename = os.path.basename(filepath)
+    Variables.image_filename = os.path.basename(filepath)
     generated_filename = str(uuid.uuid4())
-    Variables.filepath = f"images/{generated_filename}"
-    os.mkdir(Variables.filepath)
+    Variables.image_filepath = f"images/{generated_filename}"
+    os.mkdir(Variables.image_filepath)
 
     # saving a copy of the image
     image = Image.open(filepath)
-    image.save(f"images/{generated_filename}/{Variables.filename}")
+    image.save(f"images/{generated_filename}/{Variables.image_filename}")
     image.close()
     print("Creating a folder for this process and copying your image there.")
 
@@ -74,15 +76,16 @@ def create_work_book():
     wb = Workbook()
     wb.create_sheet(title=f"{Variables.image_filename}")
     del wb["Sheet"]
-    Variables.excel_file_path = f"{Variables.image_filepath}/excel.xls"
+    Variables.excel_file_path = f"{Variables.image_filepath}/excel.xlsx"
     wb.save(Variables.excel_file_path)
     print("Excel Workbook created.")
+    input_rbg_into_excel()
 
 def input_rbg_into_excel():
     workbook = load_workbook(Variables.excel_file_path)
     row, column = 1, 1
     sheet = workbook.active
-    with open(f"rgb.txt", "r") as f:
+    with open(f"{Variables.image_filepath}/rgb.txt", "r") as f:
         data = f.readlines()
         for i in data:
             if column > Variables.image_width:
@@ -90,6 +93,8 @@ def input_rbg_into_excel():
                 column = 1
             sheet.cell(column=column, row=row, value=i)
             column += 1
+    workbook.save(Variables.excel_file_path)
+    print("RBG values inputted successfully.")
 
 def main():
     check_for_folder()
