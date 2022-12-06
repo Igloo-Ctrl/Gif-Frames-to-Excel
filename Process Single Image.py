@@ -12,6 +12,7 @@ desired_filepath = "/Users/ryanjones/Downloads/santa.png"
 # time taken
 start = time.process_time()
 
+
 class Variables:
     image_width = 0
     image_height = 0
@@ -23,7 +24,9 @@ class Variables:
 
 
 def check_for_folder():
-    """check for the images folder in the current directory and if it isn't found, creates it"""
+    """
+    check for the images folder in the current directory and if it isn't found, creates it
+    """
     print(f'Checking "{os.getcwd()}" for "images" folder.')
     if exists("images"):
         print('"images" folder found.')
@@ -34,8 +37,10 @@ def check_for_folder():
 
 
 def validate_filepath():
-    """checks to see if the filepath is empty, if so exits the program, otherwise proceeds with the process
-    catches an IOError if a valid image doesn't exist at the filepath or if anything below is poorly configured"""
+    """
+    checks to see if the filepath is empty, if so exits the program, otherwise proceeds with the process
+    catches an IOError if a valid image doesn't exist at the filepath or if anything below is poorly configured
+    """
     if desired_filepath == "":
         exit('Filepath empty, please change the filepath at the top of this script to a valid location.')
     else:
@@ -49,8 +54,10 @@ def validate_filepath():
 
 
 def create_and_move(filepath):
-    """stores information in the Variables class, creates a unique directory for the process and makes a copy of
-    the original image there"""
+    """
+    stores information in the Variables class, creates a unique directory for the process and makes a copy of
+    the original image there
+    """
     # directory
     Variables.image_filename = os.path.basename(filepath)
     generated_filename = str(uuid.uuid4())
@@ -65,8 +72,10 @@ def create_and_move(filepath):
 
 
 def process_image(filepath):
-    """iterates through the pixels of the image, grabbing their RGB values and adding them to a big string
-    finally, this string is saved in a text document"""
+    """
+    iterates through the pixels of the image, grabbing their RGB values and adding them to a big string
+    finally, this string is saved in a text document
+    """
     open_image = Image.open(filepath)
     Variables.image_width, Variables.image_height = open_image.size[0], open_image.size[1]
     # rgb_image = open_image.convert("rgb")
@@ -82,9 +91,13 @@ def process_image(filepath):
         f.write(data_string)
         print(f"RGB text file created.")
     create_work_book()
+
+
 def create_work_book():
-    """creates a workbook, deletes the first sheet (typically named Sheet) and creates a new one based off
-    the image name"""
+    """
+    creates a workbook, deletes the first sheet (typically named Sheet) and creates a new one based off
+    the image name
+    """
     wb = Workbook()
     wb.create_sheet(title=f"{Variables.image_filename}")
     del wb["Sheet"]
@@ -95,7 +108,9 @@ def create_work_book():
 
 
 def input_rbg_into_excel():
-    """reads the text file and iterates through it, inputting the values into the Excel sheet"""
+    """
+    reads the text file and iterates through it, inputting the values into the Excel sheet
+    """
     workbook = load_workbook(Variables.excel_file_path)
     row, column = 1, 1
     sheet = workbook.active
@@ -111,9 +126,12 @@ def input_rbg_into_excel():
     print("RBG values inputted successfully.")
     write_vba_macros()
 
+
 def write_vba_macros():
-    """writes VBA macros specific to the image used, the first one concerns changing the cell size which is more
-    general, the second is used for colouring the sheet"""
+    """
+    writes VBA macros specific to the image used, the first one concerns changing the cell size which is more
+    general, the second is used for colouring the sheet
+    """
     comment = f"'These macros were created for the image: {Variables.image_filename}. Run the first to resize " \
               f"the cells, run the second to colour them in.\n"
     macro_one = """Sub ChangeColumnWidth()
@@ -144,6 +162,7 @@ End Sub
         f.write(compiled_text)
     print("Finished writing VBA macros.")
     print(F"All done! Time taken: {time.process_time() - start} seconds.")
+
 
 def main():
     check_for_folder()
