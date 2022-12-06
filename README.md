@@ -1,7 +1,7 @@
 # Images-to-Excel
 A programmatic way of converting the RGB values of each individual pixels of an image into data, creating and configuring an Excel document and inputting the data. The script also creates a unique folder for the process and writes complementary VBA macros to faciliate the colouring.
 
-![image](https://user-images.githubusercontent.com/107010803/205870072-559648b7-85c3-40aa-8aab-86b3743ca1a1.png)
+![image](https://user-images.githubusercontent.com/107010803/205870618-cb89bcde-fdf2-406c-85ed-1c5a43fa52be.png)
 ![image](https://user-images.githubusercontent.com/107010803/205056554-e9f4eeee-58f0-4c6d-b2fe-12a11525db00.png)
 
 Note: the colouring and formatting of the Excel file was done via VBA macros.
