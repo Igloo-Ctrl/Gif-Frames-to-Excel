@@ -1,6 +1,7 @@
-# Gif-Frames-to-Excel
-A programmatic way of converting the RGB values of each individual pixel in a GIF to data that can be further processed and inserted into an Excel document. The process, besides procuring the gif, resizing and splitting is all done automatically, assuming the correct parameters for your specific case are accounted for.
+# Images-to-Excel
+A programmatic way of converting the RGB values of each individual pixels of an image into data, creating and configuring an Excel document and inputting the data. The script also creates a unique folder for the process and writes complementary VBA macros to faciliate the colouring.
 
+![image](https://user-images.githubusercontent.com/107010803/205870618-cb89bcde-fdf2-406c-85ed-1c5a43fa52be.png)
 ![image](https://user-images.githubusercontent.com/107010803/205056554-e9f4eeee-58f0-4c6d-b2fe-12a11525db00.png)
 
 Note: the colouring and formatting of the Excel file was done via VBA macros.

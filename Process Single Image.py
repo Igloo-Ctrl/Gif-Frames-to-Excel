@@ -7,7 +7,7 @@ from PIL import Image
 from openpyxl import Workbook, load_workbook
 
 # enter the file path to your image here, for example, /Users/johndoe/Downloads/cat.png
-desired_filepath = "/Users/ryanjones/Downloads/the-manager-robert-de-niro.png"
+desired_filepath = "/Users/ryanjones/Downloads/santa.png"
 
 # time taken
 start = time.process_time()
@@ -26,10 +26,10 @@ def check_for_folder():
     """check for the images folder in the current directory and if it isn't found, creates it"""
     print(f'Checking "{os.getcwd()}" for "images" folder.')
     if exists("images"):
-        print('"Images" folder found.')
+        print('"images" folder found.')
     else:
         os.mkdir("images")
-        print('"Images" folder not found. Creating.')
+        print('"images" folder not found. Creating.')
     validate_filepath()
 
 
