@@ -3,13 +3,12 @@ from PIL import Image
 import os
 
 # desired Excel filename
-excel_filename = "bobbler"
+excel_filename = "banana"
 
 # path of the folder containing the images
-folder_name = "bobbing burb"
+folder_name = "GIF Frames"
 
 amount_of_images = len(os.listdir(folder_name))
-
 
 wb = Workbook()
 wb.save(filename=f"{excel_filename}.xlsx")
@@ -36,16 +35,17 @@ for image in enumerate(folder_contents):
 
     # image width and height
     image_width, image_height = scene_image.size[0], scene_image.size[1]
+    # print(image_width, image_height)
 
     # string to place all the data
     data_string = ""
 
     # nested for loop grab every pixel from the image, grab its specific rgb value and slaps it into a document
-    for i in range(1, image_width):
-        for j in range(1, image_height):
+    for i in range(1, image_height):
+        for j in range(1, image_width):
             data_string += f"" \
-                           f"{rgb_image.getpixel((j, i))[0]}, {rgb_image.getpixel((j, i))[1]}, {rgb_image.getpixel((j, i))[2]}\n" \
-                           f""
+                           f"{rgb_image.getpixel((j, i))[0]}, {rgb_image.getpixel((j, i))[1]}, " \
+                           f"{rgb_image.getpixel((j, i))[2]}\n"
 
     # writes to document
     with open(f"frames/frame_{image[0] + 1}.txt", "w") as f:
@@ -53,7 +53,6 @@ for image in enumerate(folder_contents):
         print(f"frame_{image[0] + 1}.txt complete!")
 
     rgb_image.close()
-
 
 document_number = 0
 workbook = load_workbook(filename=f"{excel_filename}.xlsx")
@@ -75,6 +74,6 @@ for filename in os.listdir("frames"):
         print(f"Sheet {document_number + 1} complete!")
         document_number += 1
 
-print("Saving all the changes... m")
-workbook.save(filename = f"{excel_filename}.xlsx")
+print("Saving all the changes... ")
+workbook.save(filename=f"{excel_filename}.xlsx")
 print("Complete!")

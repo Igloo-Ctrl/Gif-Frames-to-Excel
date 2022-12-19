@@ -2,12 +2,11 @@ import time
 import os
 from os.path import exists
 import uuid
-
 from PIL import Image
 from openpyxl import Workbook, load_workbook
 
 # enter the file path to your image here, for example, /Users/johndoe/Downloads/cat.png
-desired_filepath = "D:\\Pictures\\1612983463958.jpg"
+desired_filepath = "Cat-Photog-Feat-256x256.jpg"
 
 # time taken
 start = time.process_time()
