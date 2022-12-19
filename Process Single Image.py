@@ -7,13 +7,14 @@ from PIL import Image
 from openpyxl import Workbook, load_workbook
 
 # enter the file path to your image here, for example, /Users/johndoe/Downloads/cat.png
-desired_filepath = "/Users/ryanjones/Downloads/santa.png"
+desired_filepath = "D:\\Pictures\\1612983463958.jpg"
 
 # time taken
 start = time.process_time()
 
 
 class Variables:
+
     image_width = 0
     image_height = 0
 
@@ -45,12 +46,13 @@ def validate_filepath():
         exit('Filepath empty, please change the filepath at the top of this script to a valid location.')
     else:
         try:
-            Image.open(desired_filepath)
+            image = Image.open(desired_filepath)
+            image.close()
             print(f'Valid image found at "{desired_filepath}". Proceeding.')
             create_and_move(desired_filepath)
             process_image(desired_filepath)
         except IOError:
-            print("Invalid file type.")
+            print("Invalid file type or file not found.")
 
 
 def create_and_move(filepath):
