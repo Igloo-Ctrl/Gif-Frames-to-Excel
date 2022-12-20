@@ -2,6 +2,21 @@ from openpyxl import Workbook, load_workbook
 from PIL import Image
 import os
 
+gif_path = "/Users/ryanjones/Downloads/classic-dancing-banana.gif"
+
+try:
+    os.mkdir("GIF Frames")
+except FileExistsError:
+    pass
+
+image = Image.open(gif_path)
+number_of_frames = image.n_frames
+
+for i in range(number_of_frames):
+    image.seek(i)
+    image.save(f"GIF Frames/frame_{i + 1}.gif")
+    print(f"Frame {i + 1} saved!")
+
 # desired Excel filename
 excel_filename = "banana"
 
@@ -19,8 +34,8 @@ wb.save(filename=f"{excel_filename}.xlsx")
 
 # create frames folder
 try:
-    os.mkdir("frames")
-    print('"frames" folder created.')
+    os.mkdir("RGB Values")
+    print('"RGB Values" folder created.')
 except FileExistsError:
     pass
 
@@ -48,9 +63,9 @@ for image in enumerate(folder_contents):
                            f"{rgb_image.getpixel((j, i))[2]}\n"
 
     # writes to document
-    with open(f"frames/frame_{image[0] + 1}.txt", "w") as f:
+    with open(f"RGB Values/RGB_{image[0] + 1}.txt", "w") as f:
         f.write(data_string)
-        print(f"frame_{image[0] + 1}.txt complete!")
+        print(f"RGB_{image[0] + 1}.txt complete!")
 
     rgb_image.close()
 
@@ -59,11 +74,11 @@ workbook = load_workbook(filename=f"{excel_filename}.xlsx")
 
 print("Passing RGB values into the Excel document.")
 
-for filename in os.listdir("frames"):
+for filename in os.listdir("RGB Values"):
     row, column = 1, 1
     workbook.active = document_number
     sheet = workbook.active
-    with open(f"frames/{filename}", "r") as f:
+    with open(f"RGB Values/{filename}", "r") as f:
         data = f.readlines()
         for i in data:
             if column > image_width - 1:
